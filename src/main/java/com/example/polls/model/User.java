@@ -27,6 +27,25 @@ public class User extends DateAudit {
     @Size(max = 40)
     private String name;
 
+
+    private  Boolean  iadmin ;
+
+    public Boolean getIadmin() {
+        return iadmin;
+    }
+
+    public void setIadmin(Boolean iadmin) {
+        this.iadmin = iadmin;
+    }
+
+    public Set<Robots> getUserRobotses() {
+        return userRobotses;
+    }
+
+    public void setUserRobotses(Set<Robots> userRobotses) {
+        this.userRobotses = userRobotses;
+    }
+
     @OneToMany(mappedBy = "user")
     private Set<Robots> userRobotses;
 

@@ -2,6 +2,7 @@ package com.example.polls.service;
 
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.example.polls.dto.UserDTO;
@@ -24,8 +25,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    //@Autowired
-    //PasswordEncoder passwordEncoder;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     private final UserRepository userRepository;
     private final RoleRepository rolesRepository;
@@ -53,6 +54,11 @@ public class UserService {
 
     public Long create(final UserDTO userDTO) {
         final User user = new User();
+         user.setIadmin(false);
+         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+         Role r = rolesRepository.findByName(RoleName.ROLE_USER).get();
+         user.setRoles(Set.of(r));
+
 
         mapToEntity(userDTO, user);
         return userRepository.save(user).getId();
@@ -72,19 +78,22 @@ public class UserService {
 
     private UserDTO mapToDTO(final User user, final UserDTO userDTO) {
         userDTO.setId(user.getId());
-        userDTO.setFullname(user.getName());
+        userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
         //userDTO.setPassword(passwordEncoder.encode( user.getPassword()));
         userDTO.setPassword(user.getPassword());
-        userDTO.setTelephone(user.getUsername());
+        userDTO.setUsername(user.getUsername());
         return userDTO;
     }
 
     private User mapToEntity(final UserDTO userDTO, final User user) {
-        user.setName(userDTO.getFullname());
+        user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
-        user.setName(userDTO.getTelephone());
+        user.setUsername(userDTO.getUsername());
+        user.setIadmin(false)
+        ;
+
         return user;
     }
 

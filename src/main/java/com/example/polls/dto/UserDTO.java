@@ -10,7 +10,7 @@ public class UserDTO {
 
     @NotNull
     @Size(max = 255)
-    private String fullname;
+    private String username;
 
     @NotNull
     @Size(max = 255)
@@ -22,7 +22,7 @@ public class UserDTO {
 
     @NotNull
     @Size(max = 255)
-    private String telephone;
+    private String name;
 
     public Long getId() {
         return id;
@@ -32,13 +32,6 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(final String fullname) {
-        this.fullname = fullname;
-    }
 
     public String getEmail() {
         return email;
@@ -56,12 +49,19 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getUsername() {
+        return username;
     }
 
-    public void setTelephone(final String telephone) {
-        this.telephone = telephone;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
