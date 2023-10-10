@@ -93,6 +93,8 @@ public class RobotsResource {
     @PutMapping("/{id}")
     public ResponseEntity<Long> updateRobots(@PathVariable(name = "id") final Long id,
             @RequestBody @Valid final RobotsDTO robotsDTO) {
+        robotsDTO.setId(robotsDTO.getId());
+
         robotsService.update(id, robotsDTO);
         return ResponseEntity.ok(id);
     }
