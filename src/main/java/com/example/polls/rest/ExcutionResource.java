@@ -2,11 +2,14 @@ package com.example.polls.rest;
 
 
 import com.example.polls.dto.ExcutionDTO;
+import com.example.polls.repository.ExcutionRepository;
 import com.example.polls.service.ExcutionService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +25,18 @@ public class ExcutionResource {
 
     private final ExcutionService excutionService;
 
+    @Autowired
+    private ExcutionRepository excutionRepository;
+
     public ExcutionResource(final ExcutionService excutionService) {
         this.excutionService = excutionService;
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllExcutionso() {
+        return ResponseEntity.ok(excutionRepository.findAll());
+    }
+
 
     @GetMapping
     public ResponseEntity<List<ExcutionDTO>> getAllExcutions() {

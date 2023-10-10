@@ -1,5 +1,6 @@
 package com.example.polls.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Set;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Excution {
+public class Excution implements Serializable {
 
     @Id
     @Column(nullable = false, updatable = false)

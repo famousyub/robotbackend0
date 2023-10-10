@@ -57,6 +57,7 @@ public class UserService {
          user.setIadmin(false);
          user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
          Role r = rolesRepository.findByName(RoleName.ROLE_USER).get();
+         
          user.setRoles(Set.of(r));
 
 

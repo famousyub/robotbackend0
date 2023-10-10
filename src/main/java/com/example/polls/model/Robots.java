@@ -4,6 +4,7 @@ package com.example.polls.model;
 import java.time.OffsetDateTime;
 
 import com.example.polls.model.audit.UserDateAudit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -112,14 +113,21 @@ public class Robots extends UserDateAudit {
     @Column
     private String npm;
 
+
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "excution_id")
     private Excution excution;
 
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "planification_id")
     private Planifications planification;
 
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
