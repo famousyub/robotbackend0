@@ -47,6 +47,49 @@ public class AdminController {
     private PasswordEncoder passwordEncoder;
 
 
+
+
+
+    @PostMapping("/updateuser/{id}")
+    public  ResponseEntity<?> updateUSser(@PathVariable("id") Long id,@Valid  @RequestBody SignUpRequest signUpRequest){
+
+
+        User _updateuser = userRepository.getById(id);
+
+
+        if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+            return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        // Creating user's account
+
+        _updateuser.setId(id);
+
+        _updateuser.setPassword(passwordEncoder.encode(_updateuser.getPassword()));
+
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                .orElseThrow(() -> new AppException("User Role not set."));
+
+        _updateuser.setRoles(Collections.singleton(userRole));
+
+        User result = userRepository.save(_updateuser);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/users/{username}")
+                .buildAndExpand(result.getUsername()).toUri();
+
+        return ResponseEntity.created(location).body(new ApiResponse(true, "User updated  successfully"));
+
+
+    }
+
+
     @PostMapping("/addUser")
     public  ResponseEntity<?> ajouteUser( @Valid  @RequestBody SignUpRequest signUpRequest)
     {

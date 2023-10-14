@@ -36,7 +36,20 @@ public class Excution implements Serializable {
     private Set<Robots> excutionRobotses;
 
 
+
+    @Column(name = "log")
     private  String log ;
+
+    @Column(name = "logger")
+    private  String logger ;
+
+    public String getLogger() {
+        return logger;
+    }
+
+    public void setLogger(String logger) {
+        this.logger = logger;
+    }
 
     public String getLog() {
         return log;

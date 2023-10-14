@@ -64,6 +64,11 @@ roles.add(rol2);
 
 
 
+        u.setIadmin(true);
+
+
+
+
 
 
 
